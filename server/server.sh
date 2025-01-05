@@ -1,16 +1,8 @@
 #!/bin/bash
 
-# Base directories
-INSTALL_DIR="$(pwd)/postquantum-lab"
-BIN_DIR="${INSTALL_DIR}/bin"
-SBIN_DIR="${INSTALL_DIR}/sbin"
-CONFIG_DIR="${INSTALL_DIR}/etc"
-KEY_DIR="${CONFIG_DIR}/ssh"
-CONFIG_FILE="${CONFIG_DIR}/sshd_config"
-SERVICE_FILE="/etc/systemd/system/postquantum-sshd.service"
-
-# Supported algorithms
-ALGORITHMS=("ssh-mldsa66" "ssh-mldsa44" "ssh-falcon1024" "ssh-dilithium5" "ssh-sphincsharaka192frobust")
+# Source shared configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../config.sh"
 
 list_algorithms() {
     echo "Available algorithms:"

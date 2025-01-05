@@ -1,18 +1,11 @@
 #!/bin/bash
 
-BIN_DIR="$(pwd)/postquantum-lab/bin"
-KEY_DIR="${HOME}/.ssh"
-
-declare -a ALGORITHMS=(
-    "ssh-mldsa66"
-    "ssh-mldsa44"
-    "ssh-falcon1024"
-    "ssh-dilithium5"
-    "ssh-sphincsharaka192frobust"
-)
+# Source shared configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../config.sh"
 
 list_algorithms() {
-    echo "Available strong algorithms:"
+    echo "Available algorithms:"
     for i in "${!ALGORITHMS[@]}"; do
         echo "$((i+1)). ${ALGORITHMS[$i]}"
     done

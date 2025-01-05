@@ -8,6 +8,10 @@ set -eo pipefail
 
 LOG_FILE="oqs_build.log"
 
+# Source shared configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../config.sh"
+
 log() {
     echo "$(date "+%Y-%m-%d %H:%M:%S") - $1" | tee -a "$LOG_FILE"
 }
@@ -32,14 +36,6 @@ install_dependencies() {
         log "WARNING: Non-Debian system detected. Please install dependencies manually."
     fi
 }
-
-LIBOQS_REPO="https://github.com/open-quantum-safe/liboqs.git"
-LIBOQS_BRANCH="main"
-OPENSSH_REPO="https://github.com/open-quantum-safe/openssh.git"
-OPENSSH_BRANCH="OQS-v9"
-PREFIX="$(pwd)/postquantum-lab/oqs"
-INSTALL_PREFIX="$(pwd)/postquantum-lab"
-OPENSSL_SYS_DIR="/usr"
 
 # Determine OpenSSL directory
 case "$OSTYPE" in
