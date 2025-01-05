@@ -3,11 +3,12 @@
 # Get the actual project root directory (parent of this script)
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# Base installation directories
-BIN_DIR="${PROJECT_ROOT}/bin"
-SBIN_DIR="${PROJECT_ROOT}/sbin"
-PREFIX="${PROJECT_ROOT}/oqs"
-INSTALL_PREFIX="${PROJECT_ROOT}"
+# Build directories
+BUILD_DIR="${PROJECT_ROOT}/build"
+BIN_DIR="${BUILD_DIR}/bin"
+SBIN_DIR="${BUILD_DIR}/sbin"
+PREFIX="${BUILD_DIR}/oqs"
+INSTALL_PREFIX="${BUILD_DIR}"
 
 # Repository information
 LIBOQS_REPO="https://github.com/open-quantum-safe/liboqs.git"
@@ -21,9 +22,14 @@ SSH_DIR="${HOME}/.ssh"
 
 # Supported algorithms
 ALGORITHMS=(
+    "ssh-falcon1024"
     "ssh-mldsa66"
     "ssh-mldsa44"
-    "ssh-falcon1024"
     "ssh-dilithium5"
     "ssh-sphincsharaka192frobust"
+    "ssh-sphincssha256128frobust"
+    "ssh-sphincssha256192frobust"
+    "ssh-falcon512"
+    "ssh-dilithium2"
+    "ssh-dilithium3"
 )

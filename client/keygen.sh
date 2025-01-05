@@ -2,12 +2,13 @@
 
 # Source shared configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/../config.sh"
+source "${SCRIPT_DIR}/../shared/config.sh"
 source "${SCRIPT_DIR}/../shared/functions.sh"
 
+# Function for key generation
 generate_key() {
     local key_type=$1
-    local key_file="${KEY_DIR}/id_${key_type}"
+    local key_file="${SSH_DIR}/id_${key_type}"
     echo "Generating ${key_type} key..."
     if [[ -f "${key_file}" || -f "${key_file}.pub" ]]; then
         read -p "Key already exists. Overwrite? (y/N): " overwrite
@@ -25,8 +26,8 @@ generate_key() {
     echo "Key generated at ${key_file}."
 }
 
+# Main function
 main() {
-    echo "Welcome to the Post-Quantum Key Generator!"
     list_algorithms
     read -p "Select an algorithm by number (1-${#ALGORITHMS[@]}): " choice
     if [[ ! "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#ALGORITHMS[@]} )); then

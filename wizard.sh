@@ -11,7 +11,7 @@ ensure_permissions() {
     local scripts=(
         "build_oqs_openssh.sh"
         "server/server.sh"
-        "client/client.sh"
+        "client/keygen.sh"
         "client/copy_key_to_server.sh"
         "client/connect.sh"
     )
@@ -38,7 +38,7 @@ show_main_menu() {
     echo "What would you like to do?"
     echo "1. Build and install OQS-OpenSSH"
     echo "2. Configure Server"
-    echo "3. Configure Client"
+    echo "3. Generate Keys"
     echo "4. Copy Client Key to Server"
     echo "5. Connect to Server"
     echo "6. Exit"
@@ -61,8 +61,8 @@ handle_server() {
 }
 
 handle_client() {
-    echo "Starting client configuration..."
-    bash client/client.sh
+    echo "Starting key generation..."
+    bash client/keygen.sh
 }
 
 handle_copy_key() {
