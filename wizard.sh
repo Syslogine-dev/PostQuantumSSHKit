@@ -34,13 +34,30 @@ print_header() {
     echo
 }
 
-show_main_menu() {
-    echo "What would you like to do?"
+show_mode_selection() {
+    echo "Is this machine a server or client?"
+    echo "1. Server"
+    echo "2. Client"
+    echo "3. Exit"
+    echo
+}
+
+show_server_menu() {
+    echo "Server Configuration Options:"
     echo "1. Build and install OQS-OpenSSH"
     echo "2. Configure Server"
-    echo "3. Generate Keys"
-    echo "4. Copy Client Key to Server"
-    echo "5. Connect to Server"
+    echo "3. Back to mode selection"
+    echo "4. Exit"
+    echo
+}
+
+show_client_menu() {
+    echo "Client Configuration Options:"
+    echo "1. Build and install OQS-OpenSSH"
+    echo "2. Generate Keys"
+    echo "3. Copy Key to Server"
+    echo "4. Connect to Server"
+    echo "5. Back to mode selection"
     echo "6. Exit"
     echo
 }
@@ -75,15 +92,11 @@ handle_connect() {
     bash client/connect.sh
 }
 
-main() {
-    # Check and set permissions at startup
-    ensure_permissions
-
+handle_server_menu() {
     while true; do
         print_header
-        show_main_menu
-        
-        read -p "Enter your choice (1-6): " choice
+        show_server_menu
+        read -p "Enter your choice: " choice
         echo
 
         case $choice in
@@ -96,16 +109,46 @@ main() {
                 read -p "Press Enter to continue..."
                 ;;
             3)
+                return
+                ;;
+            4)
+                echo "Thank you for using the Post-Quantum SSH Wizard!"
+                exit 0
+                ;;
+            *)
+                echo "Invalid choice. Please try again."
+                read -p "Press Enter to continue..."
+                ;;
+        esac
+    done
+}
+
+handle_client_menu() {
+    while true; do
+        print_header
+        show_client_menu
+        read -p "Enter your choice: " choice
+        echo
+
+        case $choice in
+            1)
+                handle_build
+                read -p "Press Enter to continue..."
+                ;;
+            2)
                 handle_client
                 read -p "Press Enter to continue..."
                 ;;
-            4)
+            3)
                 handle_copy_key
                 read -p "Press Enter to continue..."
                 ;;
-            5)
+            4)
                 handle_connect
                 read -p "Press Enter to continue..."
+                ;;
+            5)
+                return
                 ;;
             6)
                 echo "Thank you for using the Post-Quantum SSH Wizard!"
@@ -113,6 +156,36 @@ main() {
                 ;;
             *)
                 echo "Invalid choice. Please try again."
+                read -p "Press Enter to continue..."
+                ;;
+        esac
+    done
+}
+
+main() {
+    # Check and set permissions at startup
+    ensure_permissions
+
+    while true; do
+        print_header
+        show_mode_selection
+        read -p "Enter your choice (1-3): " mode_choice
+        echo
+
+        case $mode_choice in
+            1)
+                handle_server_menu
+                ;;
+            2)
+                handle_client_menu
+                ;;
+            3)
+                echo "Thank you for using the Post-Quantum SSH Wizard!"
+                exit 0
+                ;;
+            *)
+                echo "Invalid choice. Please try again."
+                read -p "Press Enter to continue..."
                 ;;
         esac
     done
