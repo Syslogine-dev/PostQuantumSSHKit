@@ -112,9 +112,15 @@ main() {
 main
 
 # Optional: Run basic tests
-log "Running basic tests..."
-if [ -d "${BUILD_DIR}/openssh" ] && [ -f "${BUILD_DIR}/openssh/oqs-test/run_tests.sh" ]; then
-    cd "${BUILD_DIR}/openssh" && ./oqs-test/run_tests.sh
+log "Installation complete. Would you like to run the test suite?"
+read -p "Run tests? (y/N): " run_tests
+if [[ "${run_tests}" == "y" || "${run_tests}" == "Y" ]]; then
+    if [ -d "${BUILD_DIR}/openssh" ] && [ -f "${BUILD_DIR}/openssh/oqs-test/run_tests.sh" ]; then
+        log "Starting test suite..."
+        cd "${BUILD_DIR}/openssh" && ./oqs-test/run_tests.sh
+    else
+        log "Error: Test script not found. Cannot run tests."
+    fi
 else
-    log "Test script not found. Skipping tests."
+    log "Skipping tests."
 fi
