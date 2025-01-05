@@ -3,13 +3,7 @@
 # Source shared configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/../config.sh"
-
-list_algorithms() {
-    echo "Available algorithms:"
-    for i in "${!ALGORITHMS[@]}"; do
-        echo "$((i+1)). ${ALGORITHMS[$i]}"
-    done
-}
+source "${SCRIPT_DIR}/../shared/functions.sh"
 
 setup_directories() {
     echo "Setting up directories..."

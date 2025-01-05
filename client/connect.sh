@@ -1,17 +1,9 @@
 #!/bin/bash
 
-BIN_DIR="$(pwd)/postquantum-lab/bin"
-SSH_DIR="${HOME}/.ssh"
-
-# Supported algorithms
-ALGORITHMS=("ssh-mldsa66" "ssh-mldsa44" "ssh-falcon1024" "ssh-dilithium5" "ssh-sphincsharaka192frobust")
-
-list_algorithms() {
-    echo "Available algorithms:"
-    for i in "${!ALGORITHMS[@]}"; do
-        echo "$((i+1)). ${ALGORITHMS[$i]}"
-    done
-}
+# Source shared configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../config.sh"
+source "${SCRIPT_DIR}/../shared/functions.sh"
 
 connect() {
     echo "Post-Quantum SSH Connection Tool"

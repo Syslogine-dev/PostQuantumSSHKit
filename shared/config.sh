@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get the actual project root directory (parent of this script)
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Base installation directories
 BIN_DIR="${PROJECT_ROOT}/bin"
